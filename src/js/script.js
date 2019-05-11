@@ -89,6 +89,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -147,6 +148,8 @@
       //console.log('formData: ', formData);
       /* [DONE] set variable price to equal thisProduct.data.price */
       let price = thisProduct.data.price;
+      /* Images code */
+      const imageElements = thisProduct.imageWrapper;
       /* [DONE] START LOOP: for each paramId in thisProduct.data.params */
       for(let paramId in thisProduct.data.params){
         //console.log('paramId: ', paramId);
@@ -160,10 +163,13 @@
           //console.log('option: ', option);
 
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+
           /* [DONE] START IF: if option is selected and option is not default */
           if(optionSelected && !option.default){
             /* [DONE] add price of option to variable price */
             price += option.price;
+            //console.log('optionId: ', paramId);
+
           /* [DONE] END IF: if option is selected and option is not default */
           /* [DONE] START ELSE IF: if option is not selected and option is default */
           } else if (!optionSelected && option.default) {
@@ -171,6 +177,20 @@
             price -= option.price;
             /* [DONE] END ELSE IF: if option is not selected and option is default */
           }
+          /* Images code*/
+          let foundElem = imageElements.querySelectorAll('.' + paramId + '-' + optionId);
+
+          if(optionSelected){
+            for(let elem of foundElem){
+              elem.classList.add(classNames.menuProduct.imageVisible);
+            }
+
+          }else{
+            for(let elem of foundElem){
+              elem.classList.remove(classNames.menuProduct.imageVisible);
+            }
+          }
+
         /* [DONE] END LOOP: for each optionId in param.options */
         }
       /* [DONE] END LOOP: for each paramId in thisProduct.data.params */
@@ -179,6 +199,8 @@
       thisProduct.priceElem.innerHTML = price;
     }
   }
+
+
 
   const app = {
     initMenu: function(){
