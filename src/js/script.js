@@ -367,12 +367,12 @@
       const thisCart = this;
       //console.log('thisCart: ', thisCart);
       //console.log('app.cart: ', app.data);
-      const generatedHTML = templates.cartProduct(app.data);
+      const generatedHTML = templates.cartProduct(app.productData);
 
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       //console.log('generatedDOM: ', generatedDOM);
 
-      //thisCart.dom.productList.appendChild(generatedDOM);
+      thisCart.dom.productList.appendChild(generatedDOM);
 
       console.log('adding product', menuProduct);
     }
