@@ -366,8 +366,8 @@
     add(menuProduct){
       const thisCart = this;
       //console.log('thisCart: ', thisCart);
-      //console.log('app.cart: ', app.data);
-      const generatedHTML = templates.cartProduct(app.productData);
+      //console.log('thisCart.products: ', menuProduct);
+      const generatedHTML = templates.cartProduct(menuProduct);
 
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       //console.log('generatedDOM: ', generatedDOM);
