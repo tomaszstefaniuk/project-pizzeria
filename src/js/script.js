@@ -362,7 +362,6 @@
       });
     }
 
-    /* PONIŻEJ NIEDKOŃCZONY KOD DLA ZADANIA Z PODPUNKTU 8.3, NAD KTÓRYM AKTUALNIE PRACUJĘ */
     add(menuProduct){
       const thisCart = this;
       //console.log('thisCart: ', thisCart);
@@ -375,6 +374,37 @@
       thisCart.dom.productList.appendChild(generatedDOM);
 
       console.log('adding product', menuProduct);
+
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
+      console.log('thisCart.products', thisCart.products);
+    }
+  }
+
+  class cartProduct{
+    constructor(menuProduct, element){
+      const thisCartProduct = this;
+
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.priceSingle = menuProduct.priceSingle;
+      thisCartProduct.amount = menuProduct.amount;
+      thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
+
+      thisCartProduct.getElements(element);
+      console.log('new Cart Product: ', thisCartProduct);
+    }
+
+    getElements(element){
+      const thisCartProduct = this;
+
+      thisCartProduct.dom = {};
+
+      thisCartProduct.dom.wrapper = element;
+      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
     }
   }
 
