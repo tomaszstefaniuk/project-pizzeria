@@ -139,7 +139,7 @@
         /* [DONE] prevent default action for event */
         event.preventDefault();
         /* [DONE] toggle active class on element of thisProduct */
-        thisProduct.element.classList.toggle('active');
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
         /* [DONE] find all active products */
         const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
         /* [DONE] START LOOP: for each active product */
