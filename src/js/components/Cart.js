@@ -120,7 +120,8 @@ export class Cart{
     };
 
     for(let product of thisCart.products){
-      payload.products = product.getData();
+      payload.products.push(product.getData());
+      console.log('product.getData(): ', product.getData());
     }
 
     const options = {

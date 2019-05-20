@@ -70,10 +70,17 @@ export class CartProduct{
     });
   }
 
-  /* IN PROGRESS */
   getData(){
     const thisCartProduct = this;
 
+    const data = {
+      id: thisCartProduct.id,
+      amount: thisCartProduct.amount,
+      price: thisCartProduct.price,
+      priceSingle: thisCartProduct.priceSingle,
+      params: thisCartProduct.params
+    };
 
+    return data;
   }
 }
