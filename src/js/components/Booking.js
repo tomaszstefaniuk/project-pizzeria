@@ -1,8 +1,9 @@
 import {select, templates} from '../settings.js';
 import {AmountWidget} from './AmountWidget.js';
 import {utils} from '../utils.js';
+import {DatePicker} from './DatePicker.js';
 
-export class Booking{ /* 9.3 */
+export class Booking{
   constructor(bookingElem){
     const thisBooking = this;
 
@@ -21,7 +22,8 @@ export class Booking{ /* 9.3 */
     //console.log('utils.createDOMFromHTML(generatedHTML): ', utils.createDOMFromHTML(generatedHTML));
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
-    console.log('thisBooking.dom.peopleAmount: ', thisBooking.dom.peopleAmount);
+    //console.log('thisBooking.dom.peopleAmount: ', thisBooking.dom.peopleAmount);
+    thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
   }
 
   initWidgets(){
@@ -29,5 +31,6 @@ export class Booking{ /* 9.3 */
     //console.log('thisBooking.dom.peopleAmount: ', thisBooking.dom.peopleAmount);
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
+    thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
   }
 }
