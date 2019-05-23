@@ -33,8 +33,10 @@ export class DatePicker extends BaseWidget{
       }
     };
 
-    thisWidget.minDate = new Date(thisWidget.value);
+    thisWidget.minDate = utils.dateToStr(new Date(thisWidget.value));
     thisWidget.maxDate = utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture);
+
+    //console.log('thisWidget.minDate: ', thisWidget.minDate);
 
     flatpickr(thisWidget.dom.input, flatOpts);
     //console.log('thisWidget.minDate: ', thisWidget.minDate);
