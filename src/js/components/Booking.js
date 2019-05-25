@@ -64,6 +64,47 @@ export class Booking{
 
     console.log('getData urls', urls);
 
+    Promise.all([
+      fetch(urls.booking),
+      fetch(urls.eventsCurrent),
+      fetch(urls.eventsRepeat),
+    ])
+      .then(function([bookingsResponse, eventsCurrentResponse, eventsRepeatResponse]){
+        return Promise.all([
+          bookingsResponse.json(),
+          eventsCurrentResponse.json(),
+          eventsRepeatResponse.json(),
+        ]);
+      })
+      .then(function([bookings, eventsCurrent, eventsRepeat]){
+        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
+      });
+
     }
+
+  parseData(bookings, eventsCurrent, eventsRepeat){
+    const thisBooking = this;
+
+    thisBooking.booked = {};
+
+    for(let eventCurrent of eventsCurrent){
+      thisBooking.makeBooked(eventCurrent.date, eventCurrent.hour, eventCurrent.duration, eventCurrent.table);
+      //console.log('eventCurrent: ', eventCurrent);
+    }
+
+
+  }
+
+  makeBooked(date, hour, duration, table){
+    const thisBooking = this;
+    console.log('date: ', date, 'hour: ', hour, 'duration: ', duration, "table: ", table);
+
+    //thisBooking.booked[date] = {};
+
+    thisBooking.booked[date] = {[utils.hourToNumber(hour)]: [table]};
+
+
+    console.log('thisBooking.booked: ', thisBooking.booked);
+  }
 
 }
