@@ -8,7 +8,7 @@ export class DatePicker extends BaseWidget{
     const thisWidget = this;
 
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
-    thisWidget.minDate = utils.dateToStr(new Date(thisWidget.value));
+    thisWidget.minDate = new Date(thisWidget.value);
     thisWidget.maxDate = utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture);
 
     thisWidget.initPlugin();

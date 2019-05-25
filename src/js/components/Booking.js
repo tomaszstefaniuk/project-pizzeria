@@ -55,6 +55,15 @@ export class Booking{
     };
 
     console.log('getData params', params);
+
+    const urls = {
+      booking: settings.db.url + '/' + settings.db.booking + '?' + params.booking,
+      eventsCurrent: settings.db.url + '/' + settings.db.event + '?' + params.eventsCurrent,
+      eventsRepeat: settings.db.url + '/' + settings.db.event + '?' + params.eventsRepeat,
+    };
+
+    console.log('getData urls', urls);
+
     }
 
 }
