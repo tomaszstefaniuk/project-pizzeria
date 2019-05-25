@@ -1,4 +1,4 @@
-import {select, templates} from '../settings.js';
+import {select, settings, templates} from '../settings.js';
 import {AmountWidget} from './AmountWidget.js';
 import {utils} from '../utils.js';
 import {DatePicker} from './DatePicker.js';
@@ -10,6 +10,7 @@ export class Booking{
 
     thisBooking.render(bookingElem);
     thisBooking.initWidgets();
+    thisBooking.getData();
   }
 
   render(bookingElem){
@@ -36,4 +37,24 @@ export class Booking{
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
   }
+
+  getData(){
+    const thisBooking = this;
+
+    const startEndDates = {};
+    startEndDates[settings.db.dateStartParamKey] = utils.dateToStr(thisBooking.datePicker.minDate);
+    startEndDates[settings.db.dateEndParamKey] = utils.dateToStr(thisBooking.datePicker.maxDate);
+
+    const endDate = {};
+    endDate[settings.db.dateEndParamKey] = startEndDates[settings.db.dateEndParamKey];
+
+    const params = {
+      booking: utils.queryParams(startEndDates),
+      eventsCurrent: settings.db.notRepeatParam + '&' + utils.queryParams(startEndDates),
+      eventsRepeat: settings.db.repeatParam + '&' + utils.queryParams(endDate),
+    };
+
+    console.log('getData params', params);
+    }
+
 }
