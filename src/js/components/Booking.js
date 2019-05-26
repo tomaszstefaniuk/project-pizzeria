@@ -98,10 +98,25 @@ export class Booking{
     }
 
     for(let eventRepeat of eventsRepeat){
-      for (let i=0; i < settings.datePicker.maxDaysInFuture; i++){
+
+      const minDate = utils.dateToStr(thisBooking.datePicker.minDate);
+      const days = [];
+      //console.log('minDate: ', minDate);
+
+      for (let i = 0; i < settings.datePicker.maxDaysInFuture; i++){
+
+        let nextDay = utils.addDays(minDate, i);
+        let nextDate = utils.dateToStr(nextDay);
+
+        days.push(nextDate);
+
+        for(let day of days){
+          eventRepeat.date = day;
+        }
+
         thisBooking.makeBooked(eventRepeat.date, eventRepeat.hour, eventRepeat.duration, eventRepeat.table);
       }
-      //console.log('eventRepeat: ', eventRepeat);
+
     }
 
     console.log('thisBooking.booked: ', thisBooking.booked);
