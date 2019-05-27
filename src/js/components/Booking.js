@@ -1,4 +1,4 @@
-import {select, settings, templates} from '../settings.js';
+import {select, settings, classNames, templates} from '../settings.js';
 import {AmountWidget} from './AmountWidget.js';
 import {utils} from '../utils.js';
 import {DatePicker} from './DatePicker.js';
@@ -28,6 +28,8 @@ export class Booking{
     //console.log('thisBooking.dom.peopleAmount: ', thisBooking.dom.peopleAmount);
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
+
+    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
   }
 
   initWidgets(){
@@ -37,6 +39,11 @@ export class Booking{
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
+
+    thisBooking.dom.wrapper.addEventListener('updated', function(){
+      thisBooking.updateDOM();
+    });
+
   }
 
   getData(){
@@ -120,6 +127,7 @@ export class Booking{
     }
 
     console.log('thisBooking.booked: ', thisBooking.booked);
+    thisBooking.updateDOM();
   }
 
   makeBooked(date, hour, duration, table){
@@ -138,4 +146,22 @@ export class Booking{
     thisBooking.booked[date][hour].push(table);
   }
 
+  updateDOM(){
+    const thisBooking = this;
+
+    thisBooking.date = thisBooking.datePicker.value;
+    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+
+    for(let table of thisBooking.dom.tables){
+      let tableNum = table.getAttribute('data-table');
+
+      if(thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].indexOf(tableNum)){
+        table.classList.add(classNames.booking.tableBooked);
+        //console.log('table: ', table)
+      } else {
+        table.classList.remove(classNames.booking.tableBooked);
+      }
+
+    }
+  }
 }
