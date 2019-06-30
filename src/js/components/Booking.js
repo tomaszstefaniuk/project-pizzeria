@@ -13,7 +13,7 @@ export class Booking{
     thisBooking.getData();
     thisBooking.tablePicker();
 
-    console.log('thisBooking: hehze: ', thisBooking);
+    console.log('thisBooking: ', thisBooking);
   }
 
   render(bookingElem){
@@ -34,11 +34,11 @@ export class Booking{
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
     //console.log('thisBooking.dom.tables: ', thisBooking.dom.tables);
 
-    /*IN PROGRESS */
+    /* DONE */
     thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.form);
 
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
-    console.log('thisBooking.dom.starters: ', thisBooking.dom.starters);
+    //console.log('thisBooking.dom.starters: ', thisBooking.dom.starters);
 
   }
 
@@ -222,7 +222,7 @@ export class Booking{
 
   }
 
-  /*IN PROGRESS */
+  /* DONE */
   sendOrder(){
     const thisBooking = this;
     const url = settings.db.url + '/' + settings.db.booking;
