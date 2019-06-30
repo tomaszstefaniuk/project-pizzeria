@@ -11,7 +11,9 @@ export class Booking{
     thisBooking.render(bookingElem);
     thisBooking.initWidgets();
     thisBooking.getData();
+    thisBooking.tablePicker();
 
+    console.log('thisBooking: hehze: ', thisBooking);
   }
 
   render(bookingElem){
@@ -30,6 +32,14 @@ export class Booking{
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
 
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    //console.log('thisBooking.dom.tables: ', thisBooking.dom.tables);
+
+    /*IN PROGRESS */
+    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.form);
+
+    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
+    console.log('thisBooking.dom.starters: ', thisBooking.dom.starters);
+
   }
 
   initWidgets(){
@@ -43,6 +53,13 @@ export class Booking{
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDOM();
     });
+
+    /*IN PROGRESS */
+    thisBooking.dom.form.addEventListener('submit', function(event){
+      event.preventDefault();
+      thisBooking.sendOrder();
+    });
+    //console.log('thisBooking.dom.wrapper: ', thisBooking.dom.form);
 
   }
 
@@ -153,6 +170,7 @@ export class Booking{
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
 
     for(let table of thisBooking.dom.tables){
+
       let tableNum = table.getAttribute('data-table');
 
       if(thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].indexOf(tableNum)){
@@ -164,4 +182,90 @@ export class Booking{
 
     }
   }
+
+  /* DONE */
+  tablePicker(){
+    const thisBooking = this;
+    thisBooking.table = [];
+
+    for (let table of thisBooking.dom.tables) {
+      table.addEventListener('click', function(event){
+        event.preventDefault();
+        table.classList.toggle(classNames.booking.tableSelected);
+      })
+
+      thisBooking.dom.datePicker.addEventListener('updated', function(){
+        table.classList.remove(classNames.booking.tableSelected);
+      });
+
+      thisBooking.dom.hourPicker.addEventListener('updated', function(){
+        table.classList.remove(classNames.booking.tableSelected);
+      });
+
+    }
+  }
+
+  startersPicker(){
+    const thisBooking = this;
+
+    thisBooking.starters = [ ];
+
+    for(let starter of thisBooking.dom.starters){
+
+      let starterInput = starter.getElementsByTagName('input')[0];
+
+      if(starterInput.checked){
+        thisBooking.starters.push(starterInput.value);
+      }
+      //console.log('starter: ', starterInput);
+    }
+
+  }
+
+  /*IN PROGRESS */
+  sendOrder(){
+    const thisBooking = this;
+    const url = settings.db.url + '/' + settings.db.booking;
+
+    console.log('thisBookingSending: ', thisBooking);
+    //console.log('thisBooking hoursAmount: ', thisBooking.hoursAmount.correctValue);
+    //console.log('thisBooking.table: ', thisBooking.table);
+
+    thisBooking.startersPicker();
+
+    /* TABLE PICKER */
+    for (let table of thisBooking.dom.tables) {
+        if(table.classList.contains(classNames.booking.tableSelected)){
+          thisBooking.table.push( parseInt(table.getAttribute('data-table')) );
+          //console.log('thisBooking.table: ', thisBooking.table);
+        }
+    }
+
+
+    const payload = {
+      date: thisBooking.date,
+      hour: utils.numberToHour(thisBooking.hour),
+      table: thisBooking.table,
+      repeat: false,
+      duration: thisBooking.hoursAmount.value,
+      ppl: thisBooking.peopleAmount.value,
+      starters: thisBooking.starters
+    };
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+
+    fetch(url, options)
+      .then(function(response){
+        return response.json();
+      }).then(function(parsedResponse){
+        console.log('parsedResponse', parsedResponse);
+      });
+  }
+
 }

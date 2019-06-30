@@ -54,6 +54,8 @@ export class Cart{
       event.preventDefault();
       thisCart.sendOrder();
     });
+
+    //console.log('thisCart.dom.form: ', thisCart.dom.form);
   }
 
   add(menuProduct){
