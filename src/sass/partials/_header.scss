@@ -35,26 +35,170 @@
 
 }
 
+.logo_a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo_a:hover {
+  text-decoration: none;
+  color: #ddd;
+}
+
 .main-nav {
-  position: absolute;
-  @include flex(row, flex-start, flex-start);
-  bottom: ($base-size * -8);
+  //position: absolute;
+  //@include flex(row, flex-start, flex-start);
+  //bottom: ($base-size * -8);
+  font-family: "Oswald", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
-   a {
+  a {
     @extend .h2;
-    color: $color-main;
+    color: #fff;
+    font-size: 190%;
+    font-weight: 500;
     text-decoration: none;
-    margin-right: ($base-size * 2);
+    //margin-right: ($base-size * 8);
     text-align: center;
-    padding: $base-size ($base-size * 2);
+    padding: 38px 0px;
+    width: 49%;
     background: darken($color-dark, 5%);
-    border-top-left-radius: $radius;
-    border-top-right-radius: $radius;
+    border-radius: $radius;
+    //background-image: url("../images/assets/pizza-1.jpg");
+    //background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 
-     &.active {
+
+    &.active {
       background: lighten($color-dark, 75%);
     }
 
-   }
+  }
 
- }
+  div {
+    color: #fff;
+    background-color: $color-main;
+    background-position: center;
+    text-align: center;
+    width: 100%;
+    font-size: 190%;
+    font-weight: 500;
+    margin: 5px 0.5%;
+    border-radius: $radius;
+    padding: 28px 0px;
+    line-height: 110%;
+
+    span{
+      font-family: $font-text;
+      font-size: 50%;
+      font-weight: 60;
+    }
+
+  }
+
+}
+
+#orderButton {
+  background-image: url("../images/assets/pizza-1.jpg");
+  margin-right: 0.5%;
+}
+
+#bookButton {
+  background-image: url("../images/assets/pizza-2.jpg");
+  margin-left: 0.5%;
+}
+
+
+
+/* CAROUSEL */
+
+.carousel-indicators li {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 100%;
+  margin-left: 0.7rem;
+  margin-right: 0.7rem;
+  background-color: #ccc;
+  top: 60px;
+}
+
+ol.carousel-indicators li.active {
+  background-color: #000;
+}
+
+.carousel-item {
+  margin-top: 5rem;
+}
+
+.carousel_img {
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-item h1 {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.carousel_img img {
+  width: 11rem;
+  height: 11rem;
+  object-fit: cover;
+  object-position: center;
+  border-radius: $radius;
+}
+
+/*MAIN PHOTOS */
+
+.main_photos {
+  margin-top: 8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.main_photos_img img {
+  width: 11rem;
+  height: 11rem;
+  object-position: center;
+  object-fit: cover;
+  border-radius: $radius;
+}
+
+.main_photos_img {
+  position: relative;
+  width: 11rem;
+  height: 11rem;
+  margin-bottom: 1rem;
+  border-radius: $radius;
+}
+
+.main_photos_img img:hover {
+  cursor: pointer;
+  //position: absolute;
+  //content: '';
+  background-color: rgba(0, 0, 255, 0.3);
+  //z-index: 0;
+  //transition: 0.5s;
+  //opacity: 0.7;
+}
+
+
+
+
+
+/* MAIN FOOTER */
+
+.main_footer {
+  margin-top: 0.5rem;
+
+  a {
+    color: $color-main;
+    text-decoration: underline;
+  }
+
+}
