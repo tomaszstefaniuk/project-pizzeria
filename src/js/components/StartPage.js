@@ -11,6 +11,7 @@ export class StartPage{
 
     disOrderButWrapper.onclick = disableButtons;
     disBookButWrapper.onclick = disableButtons;
+
   }
 
 

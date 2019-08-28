@@ -104,12 +104,50 @@
 #orderButton {
   background-image: url("../images/assets/pizza-1.jpg");
   margin-right: 0.5%;
+  position: relative;
 }
 
 #bookButton {
   background-image: url("../images/assets/pizza-2.jpg");
   margin-left: 0.5%;
+  position: relative;
 }
+
+.main-nav-button-text {
+  position: absolute;
+  top: 94%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-family: $font-text;
+  font-size: 50%;
+  text-transform: none;
+  font-weight: 200;
+  overflow: hidden;
+  height: 0;
+  width: 100%;
+  transition: .5s ease;
+}
+
+.orderButtons:hover .main-nav-button-text {
+  height: 60%;
+}
+
+.main-nav-button-main-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+  transition: .5s ease;
+}
+
+.orderButtons:hover .main-nav-button-main-text {
+  top: 30%;
+}
+
 
 
 
@@ -171,24 +209,48 @@ ol.carousel-indicators li.active {
 
 .main_photos_img {
   position: relative;
+  display: inline-block;
   width: 11rem;
   height: 11rem;
   margin-bottom: 1rem;
   border-radius: $radius;
+  background-color: #000;
+  //border: 2px solid red;
 }
 
-.main_photos_img img:hover {
-  cursor: pointer;
-  //position: absolute;
-  //content: '';
-  background-color: rgba(0, 0, 255, 0.3);
-  //z-index: 0;
-  //transition: 0.5s;
-  //opacity: 0.7;
+.main_photos_img:hover img {
+  opacity: 0.5;
+}
+
+.main_photos_img:hover .main_photos_icon {
+  display: block;
+}
+
+.main_photos_icon {
+	position: absolute;
+  top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	display: none;
+  text-align: center;
 }
 
 
+.fa-heart {
+  color: $color-main;
+  font-size: 150%;
+  margin: 7px;
+}
 
+.fa-code-branch {
+  color: #fff;
+  font-size: 150%;
+  margin: 7px;
+}
 
 
 /* MAIN FOOTER */
